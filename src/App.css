@@ -16,7 +16,7 @@ h2{
 }
 
 .create-account-container{
-  background-image: url('/workspaces/Professional-Practice-In-IT-Project/fitfusion/public/BG.png'); 
+  background-image: url('/workspaces/Professional-Practice-In-IT-Project/public/BG.png'); 
   background-size: cover;
   min-height: 100vh;
   
@@ -49,13 +49,13 @@ h2{
 
 .app-container {
   text-align: center; /* Aligns content to the center */
-  background-image: url('/workspaces/Professional-Practice-In-IT-Project/fitfusion/public/BG.png'); /* Path to the gymP.png image in the public folder */
+  background-image: url('/workspaces/Professional-Practice-In-IT-Project/public/BG.png'); /* Path to the gymP.png image in the public folder */
   background-size: cover;
   min-height: 100vh;
   text-align: center;
 }
 .sign-in-container {
-  background-image: url('/workspaces/Professional-Practice-In-IT-Project/fitfusion/public/BG.png'); 
+  background-image: url('/workspaces/Professional-Practice-In-IT-Project/public/BG.png'); 
   background-size: cover;
   min-height: 100vh;
 }
