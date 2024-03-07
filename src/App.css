@@ -1,0 +1,138 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+h2{
+  margin-top: 0px;
+  color: #0FFF50;
+}
+.form-group {
+  color: #0FFF50;
+}
+
+.create-account-container{
+  background-image: url('/workspaces/Professional-Practice-In-IT-Project/fitfusion/public/BG.png'); 
+  background-size: cover;
+  min-height: 100vh;
+  
+}
+
+.app-title {
+  margin-top: 0px;
+  color: #0FFF50;
+  font-family: "Brush Script MT", cursive; font-size: 50px;
+  font-style: normal; 
+  font-variant: normal; 
+  font-weight: 700; 
+  line-height: 26.4px;
+}
+.title-container {
+  padding-top: 20px; /* Adjust the padding-top value to create space around the h1 element */
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.app-container {
+  text-align: center; /* Aligns content to the center */
+  background-image: url('/workspaces/Professional-Practice-In-IT-Project/fitfusion/public/BG.png'); /* Path to the gymP.png image in the public folder */
+  background-size: cover;
+  min-height: 100vh;
+  text-align: center;
+}
+.sign-in-container {
+  background-image: url('/workspaces/Professional-Practice-In-IT-Project/fitfusion/public/BG.png'); 
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.app-logo {
+  width: 200px; /* Set the width of the image */
+  height: auto; /* Maintain aspect ratio */
+  margin-top: 20px; /* Adjust the top margin */
+}
+
+p {
+  color: #0FFF50; /* Change to the desired color */
+  font-weight: bold; /* Make the text bold */
+  text-shadow: 
+    -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000; /* Set the outer black layer around each letter */
+  
+}
+
+
+.username-input,
+.password-input {
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 200px;
+}
+
+.sign-in-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sign-in-button:hover {
+  background-color: #0056b3;
+}
+
+.create-account-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.create-account-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-account-button:hover {
+  background-color: #218838;
+}
+
+.parent-container {
+  display: flex;
+  justify-content: center; /* Centers children horizontally */
+  align-items: center; /* Centers children vertically */
+  min-height: 100vh; /* Minimum height of 100% of the viewport height */
+}
+
+/* Updated .form-container style */
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  margin: auto; /* Ensures margin is automatically adjusted */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: grey;
+  border-radius: 5px;
+}
+
