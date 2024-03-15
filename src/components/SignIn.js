@@ -12,7 +12,7 @@ function SignInPage() {
 
     try {
       // Make a POST request to the server for authentication
-      const response = await fetch('/api/login', {
+      const response = await fetch('http://localhost:4001/api/login', { // Corrected URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

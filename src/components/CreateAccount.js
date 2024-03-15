@@ -20,34 +20,26 @@ function CreateAccountPage() {
         e.preventDefault();
 
         try {
-            // Make a POST request to check if the user already exists
-            const response = await fetch('/api/checkUser', {
+            const response = await fetch('http://localhost:4001/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username: formData.username })
+                body: JSON.stringify(formData)
             });
 
             if (response.ok) {
-                // If user does not exist, proceed with account creation
-                const result = await response.json();
-                if (!result.exists) {
-                    // User does not exist, proceed with account creation
-                    console.log('Creating account...');
-                    // Add code to handle account creation (e.g., API call to create account)
-                    // Then, redirect the user or show a success message
-                } else {
-                    // User already exists, display error message
-                    setError('Username already exists. Please choose a different username.');
-                }
+                console.log('Account created successfully');
+                // Redirect the user to another page
+                // window.location.href = '/login'; // Example redirect to login page
             } else {
-                // Handle server error or other issues
-                setError('An error occurred while checking user details. Please try again later.');
+                const data = await response.json();
+                console.error('Error:', data.message);
+                setError('Failed to create account. Please try again.');
             }
         } catch (error) {
             console.error('Error:', error);
-            setError('An error occurred while checking user details. Please try again later.');
+            setError('Failed to create account. Please try again.');
         }
     };
 

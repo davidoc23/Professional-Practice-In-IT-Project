@@ -13,12 +13,13 @@ app.use(bodyParser.json());
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://admin:admin@cluster0.hcqirr6.mongodb.net/fitFushionAppDB?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+
+  // This block of code executes when the connection to MongoDB is successful
 }).then(() => {
   console.log("MongoDB connected successfully");
-}).catch(err => console.log(err));
-
+  // This block of code executes when there's an error connecting to MongoDB
+}).catch(err => console.log(err));// Log the error to the console
+ 
 // Define a schema for users
 const UserSchema = new mongoose.Schema({
   username: String,
@@ -27,6 +28,36 @@ const UserSchema = new mongoose.Schema({
 
 // Define a model for users
 const User = mongoose.model('User', UserSchema);
+
+
+// Route for user registration (create account)
+app.post('/api/register', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Check if the username is already taken
+    const existingUser = await User.findOne({ username });
+
+    if (existingUser) {
+      // If the username is already taken, respond with a 409 (Conflict) status
+      return res.status(409).json({ message: 'Username already exists' });
+    }
+
+    // Create a new user with the provided username and password
+    const newUser = new User({ username, password });
+
+    // Save the new user to the database
+    await newUser.save();
+
+    // Respond with a success message
+    return res.status(201).json({ message: 'User created successfully' });
+  } catch (error) {
+    // If an error occurs, respond with an internal server error
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 // Route for user authentication
 app.post('/api/login', async (req, res) => {
