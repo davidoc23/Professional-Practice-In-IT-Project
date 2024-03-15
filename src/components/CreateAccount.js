@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SignInPage from './SignIn';
 
 function CreateAccountPage() {
     const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ function CreateAccountPage() {
     });
 
     const [error, setError] = useState('');
+    const [redirectToLogin, setRedirectToLogin] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,8 +32,8 @@ function CreateAccountPage() {
 
             if (response.ok) {
                 console.log('Account created successfully');
-                // Redirect the user to another page
-                // window.location.href = '/login'; // Example redirect to login page
+                // Set redirectToLogin to true to trigger redirection
+                setRedirectToLogin(true);
             } else {
                 const data = await response.json();
                 console.error('Error:', data.message);
@@ -43,6 +45,12 @@ function CreateAccountPage() {
         }
     };
 
+    // Check if the redirectToLogin variable is true
+    if (redirectToLogin) {
+        // If redirectToLogin is true, render the SignInPage component
+        return <SignInPage />;
+    }
+    
     return (
         <div className="create-account-container">
             <div className="parent-container">
