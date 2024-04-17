@@ -64,6 +64,8 @@ function SignInPage() {
             </div>
             <br />
             <button type="submit">Sign In</button>
+            <br/>
+            <a href="/" class="redirect-button">Go to Home</a>
             {error && <div className="error-message">{error}</div>}
           </form>
         </div>

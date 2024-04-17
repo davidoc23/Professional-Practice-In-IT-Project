@@ -68,6 +68,8 @@ function CreateAccountPage() {
                         </div>
                         <br />
                         <button type="submit">Create Account</button>
+                        <br/>
+                        <a href="/" class="redirect-button">Go to Home</a>
                         {error && <div className="error-message">{error}</div>}
                     </form>
                 </div>
