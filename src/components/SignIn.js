@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import Dashboard from './Dashboard';
 
 function SignInPage() {
   // Define state variables for username, password, and authentication error
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [redirectToDashboard, setRedirectToDashboard] = useState(false); // State to control redirect
 
   // Function to handle form submission
   const handleSubmit = async (event) => {
@@ -22,9 +24,9 @@ function SignInPage() {
 
       // Check if the request was successful (status code 200)
       if (response.ok) {
-        // If authentication is successful, you can redirect the user to another page
-        // For example, using React Router's history.push('/dashboard')
+        // If authentication is successful, set redirectToDashboard to true
         console.log('Authentication successful');
+        setRedirectToDashboard(true);
       } else {
         // If authentication fails, get the error message from the server response
         const errorData = await response.json();
@@ -36,6 +38,11 @@ function SignInPage() {
       setError('An error occurred. Please try again later.');
     }
   };
+
+  // Render the Dashboard component if redirectToDashboard is true
+  if (redirectToDashboard) {
+    return <Dashboard />;
+  }
 
   return (
     <div className="sign-in-container">
@@ -65,7 +72,7 @@ function SignInPage() {
             <br />
             <button type="submit">Sign In</button>
             <br/>
-            <a href="/" class="redirect-button">Go to Home</a>
+            <a href="/" className="redirect-button">Go to Home</a>
             {error && <div className="error-message">{error}</div>}
           </form>
         </div>
