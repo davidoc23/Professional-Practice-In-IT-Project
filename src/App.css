@@ -197,3 +197,13 @@ p {
 .cardio-button {
   background-color: #f57c00;
 }
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard-button {
+  margin-bottom: 10px; /* Adjust the margin as needed */
+}
