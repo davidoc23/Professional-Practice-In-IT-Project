@@ -26,8 +26,20 @@ const UserSchema = new mongoose.Schema({
   password: String
 });
 
+// Define a schema for workouts
+const WorkoutSchema = new mongoose.Schema({
+  category: String,
+  time: String,
+  rounds: Number,
+  tempo: Number
+});
+
 // Define a model for users
 const User = mongoose.model('User', UserSchema);
+
+// Define a model for workouts
+const Workout = mongoose.model('Workout', WorkoutSchema);
+
 
 
 // Route for user registration (create account)
@@ -108,6 +120,28 @@ app.post('/api/checkUser', async (req, res) => {
       return res.status(500).json({ message: 'Internal server error' });
     }
   });
+
+
+// Route for creating a new workout
+app.post('/api/workouts', async (req, res) => {
+  const { category, time, rounds, tempo } = req.body;
+
+  try {
+    // Create a new workout with the provided data
+    const newWorkout = new Workout({ category, time, rounds, tempo });
+
+    // Save the new workout to the database
+    await newWorkout.save();
+
+    // Respond with a success message
+    return res.status(201).json({ message: 'Workout created successfully' });
+  } catch (error) {
+    // If an error occurs, respond with an internal server error
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 // simple route
 app.get('/', (req, res) => {
