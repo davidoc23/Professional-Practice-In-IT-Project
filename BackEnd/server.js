@@ -31,7 +31,33 @@ const WorkoutSchema = new mongoose.Schema({
   category: String,
   time: String,
   rounds: Number,
-  tempo: Number
+  tempo: Number,
+  // Add a reference to the user who created the workout
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+// Define a schema for cardio workouts
+const CardioSchema = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId, // Define a unique identifier for the workout
+  category: String,
+  time: String,
+  distance: String,
+  // Add a reference to the user who created the workout
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 // Define a model for users
@@ -39,6 +65,36 @@ const User = mongoose.model('User', UserSchema);
 
 // Define a model for workouts
 const Workout = mongoose.model('Workout', WorkoutSchema);
+
+// Define a model for cardio workouts
+const CardioWorkout = mongoose.model('CardioWorkout', CardioSchema);
+
+// Route for fetching all workouts associated with a user
+app.get('/api/boxing-workouts', async (req, res) => {
+  try {
+    // Retrieve all workouts from the database
+    const workouts = await Workout.find({ userId: req.query.userId });
+    // Respond with the workouts
+    res.status(200).json(workouts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Route to fetch all cardio workouts
+app.get('/api/cardio-workouts', async (req, res) => {
+  try {
+    // Fetch all cardio workouts from the database
+    const workouts = await CardioWorkout.find();
+    // Send the list of workouts as a response
+    res.status(200).json(workouts);
+  } catch (error) {
+    // Handle errors
+    console.error('Error fetching cardio workouts:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 
@@ -123,24 +179,57 @@ app.post('/api/checkUser', async (req, res) => {
 
 
 // Route for creating a new workout
-app.post('/api/workouts', async (req, res) => {
-  const { category, time, rounds, tempo } = req.body;
+app.post('/api/boxing-workouts', async (req, res) => {
+  const { userId, category, time, rounds, tempo } = req.body;
 
   try {
-    // Create a new workout with the provided data
-    const newWorkout = new Workout({ category, time, rounds, tempo });
-
-    // Save the new workout to the database
+    // Create a new workout instance
+    const newWorkout = new Workout({ userId, category, time, rounds, tempo });
+    // Save the workout to the database
     await newWorkout.save();
-
-    // Respond with a success message
-    return res.status(201).json({ message: 'Workout created successfully' });
+    // Respond with success message
+    res.status(201).json({ message: 'Workout created successfully' });
   } catch (error) {
-    // If an error occurs, respond with an internal server error
     console.error(error);
-    return res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+// POST route to save a new cardio workout
+app.post('/api/cardio-workouts', async (req, res) => {
+  try {
+    const { category, time, distance } = req.body;
+    const newWorkout = new CardioWorkout({
+      _id: new mongoose.Types.ObjectId(), // Generate a unique ID for the workout
+      category,
+      time,
+      distance
+    });
+    await newWorkout.save();
+    res.status(201).json({ message: 'Cardio workout created successfully', workout: newWorkout });
+  } catch (error) {
+    console.error('Error creating cardio workout:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// DELETE route to remove a cardio workout by ID
+app.delete('/api/cardio-workouts/:id', async (req, res) => {
+  try {
+    const workoutId = req.params.id;
+    // Use Mongoose's findByIdAndDelete method to find and delete the workout by ID
+    const deletedWorkout = await CardioWorkout.findByIdAndDelete(workoutId);
+    if (!deletedWorkout) {
+      // If the workout with the specified ID does not exist, respond with a 404 status
+      return res.status(404).json({ message: 'Workout not found' });
+    }
+    res.status(200).json({ message: 'Workout deleted successfully', deletedWorkout });
+  } catch (error) {
+    console.error('Error deleting cardio workout:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 
 // simple route

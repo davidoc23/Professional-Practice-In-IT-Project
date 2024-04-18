@@ -27,7 +27,7 @@ function BoxingPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4001/api/workouts', { category, time, rounds, tempo });
+      const response = await axios.post('http://localhost:4001/api/boxing-workouts', { category, time, rounds, tempo });
       console.log(response.data); // Handle the response as needed
       fetchWorkouts(); // Fetch updated list of workouts after submitting
     } catch (error) {
@@ -42,7 +42,7 @@ function BoxingPage() {
 
   const fetchWorkouts = async () => {
     try {
-      const response = await axios.get('http://localhost:4001/api/workouts');
+      const response = await axios.get('http://localhost:4001/api/boxing-workouts');
       setWorkouts(response.data);
     } catch (error) {
       console.error('Error fetching workouts:', error);
