@@ -135,3 +135,58 @@ p {
   border-radius: 5px;
 }
 
+.dashboard-container {
+  background-image: url('../public/BG.png'); 
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.dashboard-title {
+  margin-top: 0px;
+  color: #0FFF50;
+}
+
+.dashboard-text {
+  margin-bottom: 20px;
+  color: #0FFF50;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.dashboard-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard-button:hover {
+  background-color: #0056b3;
+}
+
+.boxing-button {
+  background-color: #ff5a5f;
+}
+
+.weights-button {
+  background-color: #4caf50;
+}
+
+.cardio-button {
+  background-color: #f57c00;
+}
