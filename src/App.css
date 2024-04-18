@@ -135,6 +135,13 @@ p {
   border-radius: 5px;
 }
 
+.container{
+  background-image: url('../public/BG.png'); 
+  background-size: cover;
+  min-height: 100vh;
+
+}
+
 .dashboard-container {
   background-image: url('../public/BG.png'); 
   text-align: center;
