@@ -220,16 +220,6 @@ p {
 }
 
 
-/* Main container */
-.boxing-page {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #cceeff;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
 /* Section title */
 .section-title {
   font-size: 28px;
@@ -274,22 +264,108 @@ p {
   background-color: #45a049;
 }
 
-/* Workout list styles */
-.workout-list {
-  margin-top: 40px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Start of CSS for workout pages( Cardio, Boxing and Weights) .
+
+/* Form Group Styling */
+/* Overall Background and Spacing */
+.background-container {
+  padding: 30px;
+  background-image: url('../public/BG.png'); 
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+/* Form Group Styling */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label, .form-select, .form-input {
+  display: block;
+}
+
+.form-label {
+  margin-bottom: 8px;
+  color: #34495e;
+  font-weight: bold;
+}
+
+.form-select, .form-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 2px solid #bdc3c7;
+  background-color: #ecf0f1;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: #2c3e50;
+}
+
+/* Button Styling */
+.submit-button, .delete-button {
+  padding: 12px 25px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button {
+  background-color: #27ae60;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+}
+
+.submit-button:hover {
+  background-color: #2ecc71;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}
+
+/* List Styling */
 .workout-ul {
   list-style-type: none;
   padding: 0;
 }
 
 .workout-li {
-  margin-bottom: 10px;
+  padding: 12px;
   background-color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #bdc3c7;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 8px;
+}
+
+/* Page container for consistency */
+.page-container {
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 26px;
+  color: #2980b9;
+  margin-bottom: 15px;
 }
 
 .workout-category {
@@ -297,21 +373,7 @@ p {
   color: #333;
 }
 
-.workout-details {
-  margin-left: 10px;
-  color: #555;
-}
-
-.delete-button {
-  background-color: #dc3545;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.delete-button:hover {
-  background-color: #c82333;
+/* Workout list styles */
+.workout-list {
+  margin-top: 40px;
 }

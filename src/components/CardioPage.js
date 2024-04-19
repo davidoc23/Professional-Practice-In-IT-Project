@@ -57,42 +57,49 @@ function CardioPage() {
   };
 
   return (
-    <div className="cardio-page">
-      <h2>Cardio Workouts</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="category">Category:</label>
-          <select id="category" value={category} onChange={handleCategoryChange}>
-            <option value="">Select Category</option>
-            <option value="Walk">Walk</option>
-            <option value="Jog">Jog</option>
-            <option value="Sprint">Sprint</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="time">Time (minutes):</label>
-          <input type="text" id="time" value={time} onChange={handleTimeChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="distance">Distance (miles):</label>
-          <input type="text" id="distance" value={distance} onChange={handleDistanceChange} />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-
-      {/* Display list of workouts */}
-      <div>
-        <h3>List of Cardio Workouts</h3>
-        <ul>
-            {workouts.map((workout) => (
-            <li key={workout._id}>
-                Category: {workout.category}, Time: {workout.time} minutes, Distance: {workout.distance} km
-                <button onClick={() => handleDelete(workout._id)}>Delete</button>
-            </li>
-            ))}
-        </ul>
+    <div className="background-container">
+    <div className="page-container">
+        <h2 className="section-title">Cardio Workouts</h2>
+        
+        <form onSubmit={handleSubmit} className="workout-form">
+            <div className="form-group">
+                <label htmlFor="category" className="form-label">Category:</label>
+                <select id="category" value={category} onChange={handleCategoryChange} className="form-select">
+                    <option value="">Select Category</option>
+                    <option value="Walk">Walk</option>
+                    <option value="Jog">Jog</option>
+                    <option value="Sprint">Sprint</option>
+                </select>
+            </div>
+            
+            <div className="form-group">
+                <label htmlFor="time" className="form-label">Time (minutes):</label>
+                <input type="text" id="time" value={time} onChange={handleTimeChange} className="form-input" />
+            </div>
+            
+            <div className="form-group">
+                <label htmlFor="distance" className="form-label">Distance (miles):</label>
+                <input type="text" id="distance" value={distance} onChange={handleDistanceChange} className="form-input" />
+            </div>
+            
+            <button type="submit" className="submit-button">Submit</button>
+        </form>
+        
+        {/* Display list of workouts */}
+        <div className="workout-list">
+            <h3 className="section-title">List of Cardio Workouts</h3>
+            <ul className="workout-ul">
+                {workouts.map((workout) => (
+                    <li key={workout._id} className="workout-li">
+                        Category: {workout.category}, Time: {workout.time} minutes, Distance: {workout.distance} miles
+                        <br></br>
+                        <button onClick={() => handleDelete(workout._id)} className="delete-button">Delete</button>
+                    </li>
+                ))}
+            </ul>
         </div>
     </div>
+</div>
   );
 }
 
