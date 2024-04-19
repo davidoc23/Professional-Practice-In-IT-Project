@@ -230,6 +230,23 @@ app.delete('/api/cardio-workouts/:id', async (req, res) => {
   }
 });
 
+// DELETE route to remove a boxing workout by ID
+app.delete('/api/boxing-workouts/:id', async (req, res) => {
+  try {
+    const workoutId = req.params.id;
+    // Use Mongoose's findByIdAndDelete method to find and delete the workout by ID
+    const deletedWorkout = await Workout.findByIdAndDelete(workoutId);
+    if (!deletedWorkout) {
+      // If the workout with the specified ID does not exist, respond with a 404 status
+      return res.status(404).json({ message: 'Workout not found' });
+    }
+    res.status(200).json({ message: 'Workout deleted successfully', deletedWorkout });
+  } catch (error) {
+    console.error('Error deleting boxing workout:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 
 // simple route

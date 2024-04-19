@@ -49,6 +49,16 @@ function BoxingPage() {
     }
   };
 
+  const deleteWorkout = async (id) => {
+    try {
+      await axios.delete(`http://localhost:4001/api/boxing-workouts/${id}`);
+      fetchWorkouts();
+    } catch (error) {
+      console.error('Error deleting workout:', error);
+    }
+  };
+
+
   return (
     <div className="background-container">
         <div className="boxing-page">
@@ -108,6 +118,7 @@ function BoxingPage() {
             <li key={index} className="workout-li">
             <span className="workout-category">{workout.category}</span> - 
             <span className="workout-details">Time: {workout.time} minutes, Rounds: {workout.rounds}, Tempo: {workout.tempo}</span>
+            <button onClick={() => deleteWorkout(workout._id)} className="delete-button">Delete</button>
             </li>
         ))}
         </ul>
