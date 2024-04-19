@@ -93,6 +93,7 @@ function CardioPage() {
                     <li key={workout._id} className="workout-li">
                         Category: {workout.category}, Time: {workout.time} minutes, Distance: {workout.distance} miles
                         <br></br>
+                        <br></br>
                         <button onClick={() => handleDelete(workout._id)} className="delete-button">Delete</button>
                     </li>
                 ))}

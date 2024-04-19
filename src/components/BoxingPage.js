@@ -119,6 +119,7 @@ function BoxingPage() {
                 <span className="workout-category">{workout.category}</span> - 
                 <span className="workout-details">Time: {workout.time} minutes, Rounds: {workout.rounds}, Tempo: {workout.tempo}</span>
                 <br></br>
+                <br></br>
                 <button onClick={() => deleteWorkout(workout._id)} className="delete-button">Delete</button>
                 </li>
             ))}

@@ -60,6 +60,23 @@ const CardioSchema = new mongoose.Schema({
   }
 });
 
+const WeightsSchema = new mongoose.Schema({
+  category: String,
+  exercise: String,
+  repRange: Number,
+  weightLifted: Number,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+
+
 // Define a model for users
 const User = mongoose.model('User', UserSchema);
 
@@ -68,6 +85,8 @@ const Workout = mongoose.model('Workout', WorkoutSchema);
 
 // Define a model for cardio workouts
 const CardioWorkout = mongoose.model('CardioWorkout', CardioSchema);
+
+const WeightWorkout = mongoose.model('WeightWorkout', WeightsSchema);
 
 // Route for fetching all workouts associated with a user
 app.get('/api/boxing-workouts', async (req, res) => {
@@ -93,6 +112,16 @@ app.get('/api/cardio-workouts', async (req, res) => {
     // Handle errors
     console.error('Error fetching cardio workouts:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Fetching all weights workouts
+app.get('/api/weights-workouts', async (req, res) => {
+  try {
+    const workouts = await WeightWorkout.find().populate('user');
+    res.status(200).json(workouts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -213,6 +242,21 @@ app.post('/api/cardio-workouts', async (req, res) => {
   }
 });
 
+// Adding a new weights workout
+app.post('/api/weights-workouts', async (req, res) => {
+  const { category, exercise, repRange, weightLifted  } = req.body;
+  const workout = new WeightWorkout({
+    category, exercise, repRange, weightLifted 
+  });
+
+  try {
+    await workout.save();
+    res.status(201).json(workout);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 // DELETE route to remove a cardio workout by ID
 app.delete('/api/cardio-workouts/:id', async (req, res) => {
   try {
@@ -244,6 +288,36 @@ app.delete('/api/boxing-workouts/:id', async (req, res) => {
   } catch (error) {
     console.error('Error deleting boxing workout:', error);
     res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+/*Deleting a weights workout */
+app.delete('/api/weights-workouts/:id', async (req, res) => {
+  try {
+    const workout = await WeightWorkout.findByIdAndDelete(req.params.id);
+    if (!workout) {
+      return res.status(404).json({ message: 'Workout not found' });
+    }
+    res.status(200).json({ message: 'Workout deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+// Update a weights workout
+app.put('/api/weights-workouts/:id', async (req, res) => {
+  const { category, exercise, repRange, weightLifted } = req.body;
+  try {
+    const workout = await WeightWorkout.findByIdAndUpdate(req.params.id, { category, exercise, repRange, weightLifted 
+    }, { new: true });
+
+    if (!workout) {
+      return res.status(404).json({ message: 'Workout not found' });
+    }
+    res.status(200).json(workout);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 
