@@ -207,3 +207,102 @@ p {
 .dashboard-button {
   margin-bottom: 10px; /* Adjust the margin as needed */
 }
+
+.background-container {
+  background-image: url('../public/BG.png'); 
+  background-size: cover;
+  background-position: center;
+  /*height: 100vh; /* Adjust as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+
+/* Main container */
+.boxing-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #cceeff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section title */
+.section-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.form-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Submit button */
+.submit-button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+/* Workout list styles */
+.workout-list {
+  margin-top: 40px;
+}
+
+.workout-ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.workout-li {
+  margin-bottom: 10px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.workout-category {
+  font-weight: bold;
+  color: #333;
+}
+
+.workout-details {
+  margin-left: 10px;
+  color: #555;
+}
