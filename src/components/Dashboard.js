@@ -33,9 +33,10 @@ function Dashboard() {
             console.error('Error fetching workouts:', error);
         }
     };
-
+    
     const openPopup = (workout) => {
-        setSelectedWorkout(workout);
+        // Toggle selectedWorkout state
+        setSelectedWorkout(selectedWorkout ? null : workout);
     };
 
     const closePopup = () => {
@@ -55,32 +56,28 @@ function Dashboard() {
             <div className="dashboard-title">
                 <h3>Click here to see all Workouts in database currently!</h3>
                 <button className="show-all-workouts-button" onClick={() => openPopup(workouts)}>Show All Workouts</button>
-            
+
                 {selectedWorkout && (
                     <div className="popup">
                         <div className="popup-content">
                             <span className="close" onClick={closePopup}>&times;</span>
                             <h3>All Workouts</h3>
-                            <ul>
-                                {selectedWorkout.map((workout, index) => (
-                                    <li key={index}>
-                                        <p><strong>Category:</strong> {workout.category}</p>
-                                        <p><strong>Time:</strong> {workout.time}</p>
-                                        {workout.category === 'Cardio' && <p><strong>Distance:</strong> {workout.distance}</p>}
-                                        {workout.category === 'Weights' && <p><strong>Exercise:</strong> {workout.exercise}</p>}
-                                        {workout.category !== 'Cardio' && workout.category !== 'Weights' && (
-                                            <>
-                                                <p><strong>Rounds:</strong> {workout.rounds}</p>
-                                                <p><strong>Tempo:</strong> {workout.tempo}</p>
-                                            </>
-                                        )}
-                                    </li>
-                                ))}
-                            </ul>
+                            {selectedWorkout.length > 0 ? (
+                                <ul>
+                                    {selectedWorkout.map((workout, index) => (
+                                        <li key={index}>
+                                            <p><strong>Category:</strong> {workout.category}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p>No workouts currently in database</p>
+                            )}
                         </div>
                     </div>
                 )}
             </div>
+
         </div>
     );
 }

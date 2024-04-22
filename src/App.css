@@ -261,6 +261,26 @@ p {
   background-color: #45a049;
 }
 
+/*Styling for the Summary popup*/
+.popup {
+  /* Popup styles */
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent; /* Semi-transparent black background */
+  z-index: 9999; /* Ensure popup is on top */
+  text-align: left;
+}
+
+.popup-content {
+  /* Popup content styles */
+  position: relative;
+  background-color: blue;
+  padding: 20px;
+  border-radius: 15px;
+}
+
 
 
 

@@ -324,36 +324,6 @@ app.delete('/api/weights-workouts/:id', async (req, res) => {
   }
 });
 
-// DELETE route to remove a workout by ID
-app.delete('/api/delete-workout/:type/:id', async (req, res) => {
-  const { type, id } = req.params;
-  try {
-    let deletedWorkout;
-    switch (type) {
-      case 'boxing':
-        deletedWorkout = await Workout.findByIdAndDelete(id);
-        break;
-      case 'cardio':
-        deletedWorkout = await CardioWorkout.findByIdAndDelete(id);
-        break;
-      case 'weights':
-        deletedWorkout = await WeightWorkout.findByIdAndDelete(id);
-        break;
-      default:
-        return res.status(400).json({ message: 'Invalid workout type' });
-    }
-
-    if (!deletedWorkout) {
-      return res.status(404).json({ message: 'Workout not found' });
-    }
-
-    res.status(200).json({ message: 'Workout deleted successfully', deletedWorkout });
-  } catch (error) {
-    console.error(`Error deleting ${type} workout:`, error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
 // Update a weights workout
 app.put('/api/weights-workouts/:id', async (req, res) => {
   const { category, exercise, repRange, weightLifted } = req.body;
