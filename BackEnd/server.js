@@ -75,8 +75,6 @@ const WeightsSchema = new mongoose.Schema({
   }
 });
 
-
-
 // Define a model for users
 const User = mongoose.model('User', UserSchema);
 
@@ -125,8 +123,6 @@ app.get('/api/weights-workouts', async (req, res) => {
   }
 });
 
-
-
 // Route for user registration (create account)
 app.post('/api/register', async (req, res) => {
   const { username, password } = req.body;
@@ -154,7 +150,6 @@ app.post('/api/register', async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 });
-
 
 // Route for user authentication
 app.post('/api/login', async (req, res) => {
@@ -205,7 +200,6 @@ app.post('/api/checkUser', async (req, res) => {
       return res.status(500).json({ message: 'Internal server error' });
     }
   });
-
 
 // Route for creating a new workout
 app.post('/api/boxing-workouts', async (req, res) => {
@@ -304,7 +298,6 @@ app.delete('/api/weights-workouts/:id', async (req, res) => {
   }
 });
 
-
 // Update a weights workout
 app.put('/api/weights-workouts/:id', async (req, res) => {
   const { category, exercise, repRange, weightLifted } = req.body;
@@ -320,8 +313,6 @@ app.put('/api/weights-workouts/:id', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
-
 
 // simple route
 app.get('/', (req, res) => {
