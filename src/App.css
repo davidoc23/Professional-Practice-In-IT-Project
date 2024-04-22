@@ -35,7 +35,6 @@ h2{
   padding-top: 20px; /* Adjust the padding-top value to create space around the h1 element */
 }
 
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -212,13 +211,11 @@ p {
   background-image: url('../public/BG.png'); 
   background-size: cover;
   background-position: center;
-  /*height: 100vh; /* Adjust as needed */
   display: flex;
   justify-content: center;
-  align-items: center;
-  
+  align-items: top;
+  min-height: 100vh;
 }
-
 
 /* Section title */
 .section-title {
