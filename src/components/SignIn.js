@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function SignInPage() {
   // Define state variables for username, password, and authentication error
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  // Get the navigate function for programmatic navigation
+  const navigate = useNavigate();
 
   // Function to handle form submission
   const handleSubmit = async (event) => {
@@ -25,6 +28,7 @@ function SignInPage() {
       if (response.ok) {
         // If authentication is successful, redirect the user to the dashboard
         console.log('Authentication successful');
+        navigate('/dashboard'); // Redirect to the dashboard
       } else {
         // If authentication fails, get the error message from the server response
         const errorData = await response.json();
@@ -37,7 +41,10 @@ function SignInPage() {
     }
   };
 
-  
+  // Function to check if all fields are filled
+  const areFieldsFilled = () => {
+    return username.trim() !== '' && password.trim() !== '';
+  };
 
   return (
     <div className="sign-in-container">
@@ -65,9 +72,8 @@ function SignInPage() {
               />
             </div>
             <br />
-            <Link to="/dashboard">
-            <button type="submit">Sign In</button>
-            </Link>
+            <button type="submit" disabled={!areFieldsFilled()}>Sign In</button>
+            <br/>
             <br/>
             <a href="/" className="redirect-button">Go to Home</a>
             {error && <div className="error-message">{error}</div>}

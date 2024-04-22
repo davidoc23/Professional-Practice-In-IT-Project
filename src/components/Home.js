@@ -1,8 +1,17 @@
-// Home.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const navigate = useNavigate();
+
+  const handleSignIn = () => {
+    navigate('/sign-in');
+  };
+
+  const handleCreateAccount = () => {
+    navigate('/create-account');
+  };
+
   return (
     <div className="app-container">
        <header className="app-header">
@@ -15,16 +24,12 @@ function Home() {
             Start your fitness journey today.
           </p>
           <br></br>
-        <Link to="/sign-in">
-          <button className="button sign-in-button">Sign In</button>
-        </Link>
+        <button className="button sign-in-button" onClick={handleSignIn}>Sign In</button>
         <br></br>
         <p>
             New to Fit Fusion?
         </p>
-        <Link to="/create-account">
-          <button className="button create-account-button">Create an Account</button>
-        </Link>
+        <button className="button create-account-button" onClick={handleCreateAccount}>Create an Account</button>
         </header>
       </div>
    

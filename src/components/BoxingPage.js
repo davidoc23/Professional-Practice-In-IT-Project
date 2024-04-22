@@ -108,6 +108,9 @@ function BoxingPage() {
             </div>
 
             <button type="submit" className="submit-button">Submit</button>
+            <br></br>
+            <br></br>
+            <a href="/" className="redirect-button">Go to Home</a>
         </form>
 
         {/* Display list of workouts */}

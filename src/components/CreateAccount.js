@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function CreateAccountPage() {
     const [formData, setFormData] = useState({
@@ -8,6 +8,7 @@ function CreateAccountPage() {
     });
 
     const [error, setError] = useState('');
+    const navigate = useNavigate(); // Get the navigate function for programmatic navigation
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,6 +21,12 @@ function CreateAccountPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Check if username or password fields are empty
+        if (!formData.username || !formData.password) {
+            setError('Please fill in all fields.');
+            return;
+        }
+
         try {
             const response = await fetch('http://localhost:4001/api/register', {
                 method: 'POST',
@@ -31,12 +38,16 @@ function CreateAccountPage() {
 
             if (response.ok) {
                 console.log('Account created successfully');
-
-                
+                navigate('/sign-in'); // Redirect to the sign-in page upon successful account creation
             } else {
                 const data = await response.json();
                 console.error('Error:', data.message);
-                setError('Failed to create account. Please try again.');
+                if (response.status === 409) {
+                    setError('Username already exists. Please choose a different one.');
+                    setFormData({ username: '', password: '' }); // Clear the fields
+                } else {
+                    setError('Failed to create account. Please try again.');
+                }
             }
         } catch (error) {
             console.error('Error:', error);
@@ -60,9 +71,8 @@ function CreateAccountPage() {
                             <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
                         </div>
                         <br />
-                        <Link to="/sign-in">
                         <button type="submit">Create Account</button>
-                        </Link>
+                        <br/>
                         <br/>
                         <a href="/" className="redirect-button">Go to Home</a>
                         {error && <div className="error-message">{error}</div>}
