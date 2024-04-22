@@ -55,7 +55,9 @@ function Dashboard() {
             </div>
             <div className="dashboard-title">
                 <h3>Click here to see all Workouts in database currently!</h3>
-                <button className="show-all-workouts-button" onClick={() => openPopup(workouts)}>Show All Workouts</button>
+                <div>
+                    <button className="dashboard-button show-workout-button" onClick={() => openPopup(workouts)}>Show All Workouts</button>
+                </div>
 
                 {selectedWorkout && (
                     <div className="popup">
