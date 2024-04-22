@@ -86,6 +86,32 @@ const CardioWorkout = mongoose.model('CardioWorkout', CardioSchema);
 
 const WeightWorkout = mongoose.model('WeightWorkout', WeightsSchema);
 
+// Route for fetching all workouts
+app.get('/api/all-workouts', async (req, res) => {
+  try {
+    // Fetch all workouts from all workout collections
+    const boxingWorkouts = await Workout.find();
+    console.log('Boxing workouts:', boxingWorkouts);
+    
+    const cardioWorkouts = await CardioWorkout.find();
+    console.log('Cardio workouts:', cardioWorkouts);
+    
+    const weightsWorkouts = await WeightWorkout.find();
+    console.log('Weights workouts:', weightsWorkouts);
+    
+    // Combine all workouts into a single array
+    const allWorkouts = [...boxingWorkouts, ...cardioWorkouts, ...weightsWorkouts];
+    console.log('All workouts:', allWorkouts);
+    
+    // Respond with the combined list of workouts
+    res.status(200).json(allWorkouts);
+  } catch (error) {
+    console.error('Error fetching all workouts:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 // Route for fetching all workouts associated with a user
 app.get('/api/boxing-workouts', async (req, res) => {
   try {
@@ -295,6 +321,36 @@ app.delete('/api/weights-workouts/:id', async (req, res) => {
     res.status(200).json({ message: 'Workout deleted successfully' });
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+// DELETE route to remove a workout by ID
+app.delete('/api/delete-workout/:type/:id', async (req, res) => {
+  const { type, id } = req.params;
+  try {
+    let deletedWorkout;
+    switch (type) {
+      case 'boxing':
+        deletedWorkout = await Workout.findByIdAndDelete(id);
+        break;
+      case 'cardio':
+        deletedWorkout = await CardioWorkout.findByIdAndDelete(id);
+        break;
+      case 'weights':
+        deletedWorkout = await WeightWorkout.findByIdAndDelete(id);
+        break;
+      default:
+        return res.status(400).json({ message: 'Invalid workout type' });
+    }
+
+    if (!deletedWorkout) {
+      return res.status(404).json({ message: 'Workout not found' });
+    }
+
+    res.status(200).json({ message: 'Workout deleted successfully', deletedWorkout });
+  } catch (error) {
+    console.error(`Error deleting ${type} workout:`, error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
