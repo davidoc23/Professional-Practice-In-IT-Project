@@ -110,6 +110,9 @@ function BoxingPage() {
                 <br></br>
                 <br></br>
                 <a href="/" className="redirect-button">Go to Home</a>
+                <br></br>
+                <br></br>
+                <a href="/dashboard" className="redirect-button">Go back to Dashboard</a>
             </form>
 
             {/* Display list of workouts */}
