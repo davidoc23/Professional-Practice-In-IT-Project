@@ -69,6 +69,10 @@ function Dashboard() {
                                     {selectedWorkout.map((workout, index) => (
                                         <li key={index}>
                                             <p><strong>Category:</strong> {workout.category}</p>
+                                            <div style={{ marginLeft: '20px' }}>
+                                                <p><strong>Duration:</strong> {workout.duration}</p>
+                                                <p><strong>Intensity:</strong> {workout.intensity}</p>
+                                            </div>
                                         </li>
                                     ))}
                                 </ul>
