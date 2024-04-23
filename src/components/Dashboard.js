@@ -54,35 +54,117 @@ function Dashboard({ username }) {
                 <button className="dashboard-button logout-button" onClick={handleLogout}>Logout</button>
             </div>
             <div className="dashboard-title">
-                <h3>Click here to see all Workouts in database currently!</h3>
-                <div>
-                    <button className="dashboard-button show-workout-button" onClick={() => openPopup(workouts)}>Show All Workouts</button>
-                </div>
-
-                {selectedWorkout && (
-                    <div className="popup">
-                        <div className="popup-content">
-                            <span className="close" onClick={closePopup}>&times;</span>
-                            <h3>All Workouts</h3>
-                            {selectedWorkout.length > 0 ? (
-                                <ul>
-                                    {selectedWorkout.map((workout, index) => (
-                                        <li key={index}>
-                                            <p><strong>Category:</strong> {workout.category}</p>
-                                            <div style={{ marginLeft: '20px' }}>
-                                                <p><strong>Duration:</strong> {workout.duration}</p>
-                                                <p><strong>Intensity:</strong> {workout.intensity}</p>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p>No workouts currently in database</p>
-                            )}
-                        </div>
-                    </div>
-                )}
+            <h3>Click here to see all Workouts in database currently!</h3>
+            <div>
+                <button className="dashboard-button show-workout-button" onClick={() => openPopup(workouts)}>Show All Workouts</button>
             </div>
+
+            {selectedWorkout && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <span className="close" onClick={closePopup}>&times;</span>
+                        <h3>All Workouts</h3>
+                        {selectedWorkout.length > 0 ? (
+                            <ul>
+                                {selectedWorkout.map((workout, index) => (
+                                    <li key={index}>
+                                        <div style={{ marginLeft: '20px' }}>
+                                            {workout.category === 'Boxing on the bag' && (
+                                                <div>
+                                                    <p><strong>Exercise:</strong> {workout.category}</p>
+                                                    <p><strong>Time:</strong> {workout.time} minutes</p>
+                                                    <p><strong>Rounds:</strong> {workout.rounds}</p>
+                                                    <p><strong>Tempo:</strong> {workout.tempo}</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ marginLeft: '20px' }}>
+                                            {workout.category === 'Shadow boxing' && (
+                                                <div>
+                                                    <p><strong>Exercise:</strong> {workout.category}</p>
+                                                    <p><strong>Time:</strong> {workout.time} minutes</p>
+                                                    <p><strong>Rounds:</strong> {workout.rounds}</p>
+                                                    <p><strong>Tempo:</strong> {workout.tempo}</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ marginLeft: '20px' }}>
+                                            {workout.category === 'Pads' && (
+                                                <div>
+                                                    <p><strong>Exercise:</strong> {workout.category}</p>
+                                                    <p><strong>Time:</strong> {workout.time} minutes</p>
+                                                    <p><strong>Rounds:</strong> {workout.rounds}</p>
+                                                    <p><strong>Tempo:</strong> {workout.tempo}</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ marginLeft: '20px' }}>
+                                            {workout.category === 'Walk' && (
+                                                <div>
+                                                    <p><strong>Exercise:</strong> {workout.category}</p>
+                                                    <p><strong>Time:</strong> {workout.time} minutes</p>
+                                                    <p><strong>Distance:</strong> {workout.distance} miles</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ marginLeft: '20px' }}>
+                                            {workout.category === 'Jog' && (
+                                                <div>
+                                                    <p><strong>Exercise:</strong> {workout.category}</p>
+                                                    <p><strong>Time:</strong> {workout.time} minutes</p>
+                                                    <p><strong>Distance:</strong> {workout.distance} miles</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ marginLeft: '20px' }}>
+                                            {workout.category === 'Sprint' && (
+                                                <div>
+                                                    <p><strong>Exercise:</strong> {workout.category}</p>
+                                                    <p><strong>Time:</strong> {workout.time} minutes</p>
+                                                    <p><strong>Distance:</strong> {workout.distance} miles</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ marginLeft: '20px' }}>
+                                            {workout.category === 'Chest and Arms' && (
+                                                <div>
+                                                    <p><strong>Category:</strong> {workout.category}</p>
+                                                    <p><strong>Exercise:</strong> {workout.exercise}</p>
+                                                    <p><strong>Rep Range:</strong> {workout.repRange}</p>
+                                                    <p><strong>Weight Lifted:</strong> {workout.weightLifted} KG</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ marginLeft: '20px' }}>
+                                            {workout.category === 'Back and Shoulders' && (
+                                                <div>
+                                                    <p><strong>Category:</strong> {workout.category}</p>
+                                                    <p><strong>Exercise:</strong> {workout.exercise}</p>
+                                                    <p><strong>Rep Range:</strong> {workout.repRange}</p>
+                                                    <p><strong>Weight Lifted:</strong> {workout.weightLifted} KG</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ marginLeft: '20px' }}>
+                                            {workout.category === 'Legs' && (
+                                                <div>
+                                                    <p><strong>Category:</strong> {workout.category}</p>
+                                                    <p><strong>Exercise:</strong> {workout.exercise}</p>
+                                                    <p><strong>Rep Range:</strong> {workout.repRange}</p>
+                                                    <p><strong>Weight Lifted:</strong> {workout.weightLifted} KG</p>
+                                                </div>
+                                            )}
+                                        </div>                                        
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>No workouts currently in database</p>
+                        )}
+                    </div>
+                </div>
+            )}
+        </div>
 
         </div>
     );

@@ -118,7 +118,7 @@ function BoxingPage({ username }) {
 
             {/* Display list of workouts */}
             <div className="workout-list">
-            <p>Welcome, {username}!</p>
+              <p>Welcome, {username}!</p>
                 <h3 className="section-title">List of Workouts</h3>
                 <ul className="workout-ul">
                 {workouts.map((workout, index) => (
