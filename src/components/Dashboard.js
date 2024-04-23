@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css'; // Import CSS file for styling
 
-function Dashboard() {
+function Dashboard({ username }) {
     const navigate = useNavigate();
     const [workouts, setWorkouts] = useState([]);
     const [selectedWorkout, setSelectedWorkout] = useState(null);
@@ -48,7 +48,7 @@ function Dashboard() {
             <h2 className="dashboard-title">Welcome to the Dashboard</h2>
             <p className="dashboard-text">Explore your fitness journey with our exciting activities:</p>
             <div className="button-container">
-                <button className="dashboard-button boxing-button" onClick={() => navigate('/boxing')}>Boxing</button>
+                <button className="dashboard-button boxing-button" onClick={() => navigate(`/boxing?username=${username}`)}>Boxing</button>
                 <button className="dashboard-button weights-button" onClick={() => navigate('/weights')}>Weights</button>
                 <button className="dashboard-button cardio-button" onClick={() => navigate('/cardio')}>Cardio</button>
                 <button className="dashboard-button logout-button" onClick={handleLogout}>Logout</button>

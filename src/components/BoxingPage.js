@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function BoxingPage() {
+
+function BoxingPage({ username }) {
   const [category, setCategory] = useState('');
   const [time, setTime] = useState('');
   const [rounds, setRounds] = useState('');
@@ -117,12 +118,13 @@ function BoxingPage() {
 
             {/* Display list of workouts */}
             <div className="workout-list">
+            <p>Welcome, {username}!</p>
                 <h3 className="section-title">List of Workouts</h3>
                 <ul className="workout-ul">
                 {workouts.map((workout, index) => (
                     <li key={index} className="workout-li">
                     <span className="workout-category">{workout.category}</span> - 
-                    <span className="workout-details">Time: {workout.time} minutes, Rounds: {workout.rounds}, Tempo: {workout.tempo}</span>
+                    <span className="workout-details"> User: {username} Time: {workout.time} minutes, Rounds: {workout.rounds}, Tempo: {workout.tempo}</span>
                     <br></br>
                     <br></br>
                     <button onClick={() => deleteWorkout(workout._id)} className="delete-button">Delete</button>

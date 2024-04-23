@@ -28,7 +28,7 @@ function SignInPage() {
       if (response.ok) {
         // If authentication is successful, redirect the user to the dashboard
         console.log('Authentication successful');
-        navigate('/dashboard'); // Redirect to the dashboard
+        navigate(`/dashboard?username=${username}`); // Redirect to the boxing page with the username
       } else {
         // If authentication fails, get the error message from the server response
         const errorData = await response.json();

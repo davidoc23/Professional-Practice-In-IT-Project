@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 // Import the User model
 const User = require('../src/models/user');
-const Workout = require('../src/models/workout');
+const Workout = require('../src/models/BoxingWorkout');
 const CardioWorkout = require('../src/models/cardioWorkout');
 const WeightWorkout = require('../src/models/weightsWorkout'); 
 
@@ -25,49 +25,77 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.hcqirr6.mongodb.net/fitFush
   console.log("MongoDB connected successfully");
 }).catch(err => console.log(err));
 
-// Route for fetching all workouts
+// Route for fetching all workouts associated with the logged-in user
 app.get('/api/all-workouts', async (req, res) => {
   try {
-    const boxingWorkouts = await Workout.find();
-    const cardioWorkouts = await CardioWorkout.find();
-    const weightsWorkouts = await WeightWorkout.find();
+    // Retrieve the user ID from the request headers
+    const userId = req.headers['username'];
+
+    // Fetch all workouts associated with the user
+    const boxingWorkouts = await Workout.find({ userId });
+    const cardioWorkouts = await CardioWorkout.find({ userId });
+    const weightsWorkouts = await WeightWorkout.find({ userId });
+
+    // Combine all workouts into a single array
     const allWorkouts = [...boxingWorkouts, ...cardioWorkouts, ...weightsWorkouts];
+
+    // Respond with the combined list of workouts
     res.status(200).json(allWorkouts);
   } catch (error) {
-    console.error('Error fetching all workouts:', error);
+    console.error('Error fetching workouts:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
 
-// Route for fetching all workouts associated with a user
+
+// Route for fetching all boxing workouts associated with the logged-in user
 app.get('/api/boxing-workouts', async (req, res) => {
   try {
-    const workouts = await Workout.find({ userId: req.query.userId });
-    res.status(200).json(workouts);
+    // Retrieve the user ID from the request headers
+    const userId = req.headers['username'];
+
+    // Fetch all boxing workouts associated with the user
+    const boxingWorkouts = await Workout.find({ userId });
+
+    // Respond with the list of boxing workouts
+    res.status(200).json(boxingWorkouts);
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching boxing workouts:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
 
-// Route to fetch all cardio workouts
+// Route for fetching all cardio workouts associated with the logged-in user
 app.get('/api/cardio-workouts', async (req, res) => {
   try {
-    const workouts = await CardioWorkout.find();
-    res.status(200).json(workouts);
+    // Retrieve the user ID from the request (assuming it's included in the request headers)
+    const userId = req.headers['username'];
+
+    // Fetch all cardio workouts associated with the user
+    const cardioWorkouts = await CardioWorkout.find({ user: userId });
+
+    // Respond with the list of cardio workouts
+    res.status(200).json(cardioWorkouts);
   } catch (error) {
     console.error('Error fetching cardio workouts:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
-// Fetching all weights workouts
+// Route for fetching all weights workouts associated with the logged-in user
 app.get('/api/weights-workouts', async (req, res) => {
   try {
-    const workouts = await WeightWorkout.find().populate('user');
-    res.status(200).json(workouts);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    // Retrieve the user ID from the request (assuming it's included in the request headers)
+    const userId = req.headers['username'];
+
+    // Fetch all weights workouts associated with the user
+    const weightsWorkouts = await WeightWorkout.find({ user: userId });
+
+    // Respond with the list of weights workouts
+    res.status(200).json(weightsWorkouts);
+  } catch (error) {
+    console.error('Error fetching weights workouts:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
