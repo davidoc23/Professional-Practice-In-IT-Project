@@ -283,7 +283,11 @@ p {
   background-color: blue;
   padding: 20px;
   border-radius: 15px;
+  max-height: 500px; /* Set maximum height */
+  overflow-y: auto; /* Enable vertical scrollbar */
 }
+
+
 
 
 
