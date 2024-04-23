@@ -65,7 +65,7 @@ function Dashboard({ username }) {
                         <span className="close" onClick={closePopup}>&times;</span>
                         <h3>All Workouts</h3>
                         {selectedWorkout.length > 0 ? (
-                            <ul>
+                            <ol>
                                 {selectedWorkout.map((workout, index) => (
                                     <li key={index}>
                                         <div style={{ marginLeft: '20px' }}>
@@ -157,7 +157,7 @@ function Dashboard({ username }) {
                                         </div>                                        
                                     </li>
                                 ))}
-                            </ul>
+                            </ol>
                         ) : (
                             <p>No workouts currently in database</p>
                         )}
