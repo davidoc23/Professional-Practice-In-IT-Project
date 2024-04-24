@@ -269,7 +269,7 @@ p {
 .popup {
   /* Popup styles */
   position: fixed;
-  top: 45%;
+  top: 38%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: transparent; /* Semi-transparent black background */
