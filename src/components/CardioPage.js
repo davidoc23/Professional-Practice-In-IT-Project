@@ -1,14 +1,17 @@
+//Import React and necessary hooks from 'react', and axios for making HTTP requests.
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function CardioPage() {
-  const [category, setCategory] = useState('');
-  const [time, setTime] = useState('');
-  const [distance, setDistance] = useState('');
-  const [workouts, setWorkouts] = useState([]);
+  //State hooks to manage the form data and list of workouts.
+  const [category, setCategory] = useState('');//Manages the cardio workout category.
+  const [time, setTime] = useState('');//Manages the time spent on the workout.
+  const [distance, setDistance] = useState('');//Manages the distance covered in the workout.
+  const [workouts, setWorkouts] = useState([]);//Manages a list of workouts fetched from the backend.
 
+   //Event handlers to update state based on user input.
   const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
+    setCategory(e.target.value);//Update category state on user input.
   };
 
   const handleTimeChange = (e) => {
@@ -19,14 +22,26 @@ function CardioPage() {
     setDistance(e.target.value);
   };
 
+  //Handle form submission with async function.
+  //HandleSubmit is defined as an asynchronous function, which means it will handle 
+  //asynchronous operations and return a Promise.
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+       //axios.post returns a Promise. Using 'await' pauses execution of this async function
+        //until the Promise resolves or rejects. Execution resumes once the server response is received.
       const response = await axios.post('http://localhost:4001/api/cardio-workouts', { category, time, distance });
+      //Log the response data to the console. Since the await keyword is used above,
+      //at this point, 'response' contains the resolved value of the Promise returned by axios.post.
       console.log(response.data); // Handle the response as needed
-      // Fetch the updated list of workouts after submission
+      //Fetch the updated list of workouts after submission
+      //After successfully posting the data, fetch the latest workouts from the server.
+      //fetchWorkouts also returns a Promise and is handled with await, ensuring that
+      //it completes before any subsequent lines of code run.
       fetchWorkouts();
     } catch (error) {
+      // If the Promise is rejected (e.g., network error, server error), the control jumps to this catch block.
+      // Logs the error to the console.
       console.error('Error:', error);
     }
   };

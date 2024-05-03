@@ -2,20 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function WeightsPage() {
+  //State hooks for managing form inputs and workout list
   const [category, setCategory] = useState('');
   const [exercise, setExercise] = useState('');
   const [repRange, setRepRange] = useState('');
   const [weightLifted, setWeightLifted] = useState('');
   const [workouts, setWorkouts] = useState([]);
 
+  //Handle changes to the workout category selection
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
-    // Reset exercise, repRange, and weightLifted when category changes
+    //Reset exercise, repRange, and weightLifted when category changes
     setExercise('');
     setRepRange('');
     setWeightLifted('');
   };
-
+  //Handle changes to the exercise selection
   const handleExerciseChange = (e) => {
     setExercise(e.target.value);
   };
@@ -28,36 +30,39 @@ function WeightsPage() {
     setWeightLifted(e.target.value);
   };
 
+  //Function to handle form submission, posts data to backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:4001/api/weights-workouts', { category, exercise, repRange, weightLifted });
       console.log(response.data);
-      fetchWorkouts(); // Fetch workouts again after submitting new workout
+      fetchWorkouts(); //Fetch workouts again after submitting new workout
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
+  //Function to delete a workout, updates the list upon deletion
   const handleDelete = async (workoutId) => {
     try {
       const response = await axios.delete(`http://localhost:4001/api/weights-workouts/${workoutId}`);
       console.log(response.data);
-      fetchWorkouts();
+      fetchWorkouts();//Refresh the list after deleting an entry
     } catch (error) {
       console.error('Error deleting workout:', error);
     }
   };
 
-
+//Fetch workouts from the backend upon component mounting
   useEffect(() => {
     fetchWorkouts(); // Fetch workouts when component mounts
   }, []);
 
+  //Asynchronously fetch workouts from the API
   const fetchWorkouts = async () => {
     try {
       const response = await axios.get('http://localhost:4001/api/weights-workouts');
-      setWorkouts(response.data);
+      setWorkouts(response.data);//Update state with fetched workouts
     } catch (error) {
       console.error('Error fetching workouts:', error);
     }

@@ -1,14 +1,17 @@
+//Import React and necessary hooks from 'react', and the axios library for making HTTP requests.
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
+//Define a React functional component named BoxingPage that receives a prop called 'username'.
 function BoxingPage({ username }) {
+    //Define state variables with their initial values and setters for storing and managing component state.
   const [category, setCategory] = useState('');
   const [time, setTime] = useState('');
   const [rounds, setRounds] = useState('');
   const [tempo, setTempo] = useState('');
   const [workouts, setWorkouts] = useState([]);
 
+  //Event handlers for updating the state when input values change in the form.
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
   };
@@ -25,31 +28,32 @@ function BoxingPage({ username }) {
     setTempo(e.target.value);
   };
 
+  //Handle the form submission with an asynchronous function to post data using axios.
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();//Prevent default form submission behavior.
     try {
       const response = await axios.post('http://localhost:4001/api/boxing-workouts', { category, time, rounds, tempo });
-      console.log(response.data); // Handle the response as needed
-      fetchWorkouts(); // Fetch updated list of workouts after submitting
+      console.log(response.data); //Handle the response as needed
+      fetchWorkouts(); //Fetch updated list of workouts after submitting
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error); //Log any errors that occur during the post request.
     }
   };
 
   useEffect(() => {
-    // Fetch the list of workouts from the backend when the component mounts
+    //Fetch the list of workouts from the backend when the component mounts
     fetchWorkouts();
   }, []);
 
   const fetchWorkouts = async () => {
     try {
       const response = await axios.get('http://localhost:4001/api/boxing-workouts');
-      setWorkouts(response.data);
+      setWorkouts(response.data);//Update the workouts state with the fetched data.
     } catch (error) {
       console.error('Error fetching workouts:', error);
     }
   };
-
+  //Function to handle the deletion of a workout using its unique ID.
   const deleteWorkout = async (id) => {
     try {
       await axios.delete(`http://localhost:4001/api/boxing-workouts/${id}`);
@@ -59,6 +63,7 @@ function BoxingPage({ username }) {
     }
   };
 
+  //Render method returns the JSX to be displayed by this component.
   return (
     <div className="background-container">
         <div className="page-container">

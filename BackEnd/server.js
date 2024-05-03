@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-// Import the User model
+//Import the User model
 const User = require('../src/models/user');
 const Workout = require('../src/models/BoxingWorkout');
 const CardioWorkout = require('../src/models/cardioWorkout');
@@ -12,12 +12,12 @@ const WeightWorkout = require('../src/models/weightsWorkout');
 const app = express();
 const port = process.env.PORT || 4001;
 
-// Enable Cross-Origin Resource Sharing (CORS)
+//Enable Cross-Origin Resource Sharing (CORS)
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Connect to MongoDB
+//Connect to MongoDB
 mongoose.connect('mongodb+srv://admin:admin@cluster0.hcqirr6.mongodb.net/fitFushionAppDB?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -25,21 +25,21 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.hcqirr6.mongodb.net/fitFush
   console.log("MongoDB connected successfully");
 }).catch(err => console.log(err));
 
-// Route for fetching all workouts associated with the logged-in user
+//Route for fetching all workouts associated with the logged-in user
 app.get('/api/all-workouts', async (req, res) => {
   try {
-    // Retrieve the user ID from the request headers
+    //Retrieve the user ID from the request headers
     const userId = req.headers['username'];
 
-    // Fetch all workouts associated with the user
+    //Fetch all workouts associated with the user
     const boxingWorkouts = await Workout.find({ userId });
     const cardioWorkouts = await CardioWorkout.find({ userId });
     const weightsWorkouts = await WeightWorkout.find({ userId });
 
-    // Combine all workouts into a single array
+    //Combine all workouts into a single array
     const allWorkouts = [...boxingWorkouts, ...cardioWorkouts, ...weightsWorkouts];
 
-    // Respond with the combined list of workouts
+    //Respond with the combined list of workouts
     res.status(200).json(allWorkouts);
   } catch (error) {
     console.error('Error fetching workouts:', error);
@@ -48,16 +48,16 @@ app.get('/api/all-workouts', async (req, res) => {
 });
 
 
-// Route for fetching all boxing workouts associated with the logged-in user
+//Route for fetching all boxing workouts associated with the logged-in user
 app.get('/api/boxing-workouts', async (req, res) => {
   try {
-    // Retrieve the user ID from the request headers
+    //Retrieve the user ID from the request headers
     const userId = req.headers['username'];
 
-    // Fetch all boxing workouts associated with the user
+    //Fetch all boxing workouts associated with the user
     const boxingWorkouts = await Workout.find({ userId });
 
-    // Respond with the list of boxing workouts
+    //Respond with the list of boxing workouts
     res.status(200).json(boxingWorkouts);
   } catch (error) {
     console.error('Error fetching boxing workouts:', error);
@@ -65,16 +65,16 @@ app.get('/api/boxing-workouts', async (req, res) => {
   }
 });
 
-// Route for fetching all cardio workouts associated with the logged-in user
+//Route for fetching all cardio workouts associated with the logged-in user
 app.get('/api/cardio-workouts', async (req, res) => {
   try {
-    // Retrieve the user ID from the request (assuming it's included in the request headers)
+    //Retrieve the user ID from the request (assuming it's included in the request headers)
     const userId = req.headers['username'];
 
-    // Fetch all cardio workouts associated with the user
+    //Fetch all cardio workouts associated with the user
     const cardioWorkouts = await CardioWorkout.find({ user: userId });
 
-    // Respond with the list of cardio workouts
+    //Respond with the list of cardio workouts
     res.status(200).json(cardioWorkouts);
   } catch (error) {
     console.error('Error fetching cardio workouts:', error);
@@ -82,16 +82,16 @@ app.get('/api/cardio-workouts', async (req, res) => {
   }
 });
 
-// Route for fetching all weights workouts associated with the logged-in user
+//Route for fetching all weights workouts associated with the logged-in user
 app.get('/api/weights-workouts', async (req, res) => {
   try {
-    // Retrieve the user ID from the request (assuming it's included in the request headers)
+    //Retrieve the user ID from the request (assuming it's included in the request headers)
     const userId = req.headers['username'];
 
-    // Fetch all weights workouts associated with the user
+    //Fetch all weights workouts associated with the user
     const weightsWorkouts = await WeightWorkout.find({ user: userId });
 
-    // Respond with the list of weights workouts
+    //Respond with the list of weights workouts
     res.status(200).json(weightsWorkouts);
   } catch (error) {
     console.error('Error fetching weights workouts:', error);
@@ -99,7 +99,7 @@ app.get('/api/weights-workouts', async (req, res) => {
   }
 });
 
-// Route for user registration (create account)
+//Route for user registration (create account)
 app.post('/api/register', async (req, res) => {
   const { username, password } = req.body;
 
@@ -119,7 +119,7 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-// Route for user authentication
+//Route for user authentication
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -141,7 +141,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// Route to check if a user already exists
+//Route to check if a user already exists
 app.post('/api/checkUser', async (req, res) => {
     const { username } = req.body;
   

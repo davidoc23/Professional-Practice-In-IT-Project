@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function SignInPage() {
-  // Define state variables for username, password, and authentication error
+  //Define state variables for username, password, and authentication error
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  // Get the navigate function for programmatic navigation
+  //Get the navigate function for programmatic navigation
   const navigate = useNavigate();
 
-  // Function to handle form submission
+  //Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
     try {
-      // Make a POST request to the server for authentication
+      //Make a POST request to the server for authentication
       const response = await fetch('http://localhost:4001/api/login', { // Corrected URL
         method: 'POST',
         headers: {
@@ -24,24 +24,24 @@ function SignInPage() {
         body: JSON.stringify({ username, password })
       });
 
-      // Check if the request was successful (status code 200)
+      //Check if the request was successful (status code 200)
       if (response.ok) {
-        // If authentication is successful, redirect the user to the dashboard
+        //If authentication is successful, redirect the user to the dashboard
         console.log('Authentication successful');
         navigate(`/dashboard?username=${username}`); // Redirect to the boxing page with the username
       } else {
-        // If authentication fails, get the error message from the server response
+        //If authentication fails, get the error message from the server response
         const errorData = await response.json();
         setError(errorData.message);
       }
     } catch (error) {
-      // Handle any network errors
+      //Handle any network errors
       console.error('Error:', error);
       setError('An error occurred. Please try again later.');
     }
   };
 
-  // Function to check if all fields are filled
+  //Function to check if all fields are filled
   const areFieldsFilled = () => {
     return username.trim() !== '' && password.trim() !== '';
   };

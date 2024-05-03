@@ -4,29 +4,32 @@ import axios from 'axios';
 import '../App.css'; // Import CSS file for styling
 
 function Dashboard({ username }) {
+    //Setup navigation and state management
     const navigate = useNavigate();
     const [workouts, setWorkouts] = useState([]);
     const [selectedWorkout, setSelectedWorkout] = useState(null);
 
+    //Effect to fetch workouts on component mount
     useEffect(() => {
         fetchWorkouts();
     }, []);
 
     const handleLogout = () => {
-        // Clear session storage or cookies used for authentication
-        sessionStorage.removeItem('token'); // Assuming 'token' is used for authentication
-        // Clear authentication cookie
-        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // Assuming 'token' is used for authentication
+        //Clear session storage or cookies used for authentication
+        sessionStorage.removeItem('token'); //Assuming 'token' is used for authentication
+        //Clear authentication cookie
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; //Assuming 'token' is used for authentication
         navigate('/sign-in');
     };
 
+    // sync function to fetch workouts from various categories
     const fetchWorkouts = async () => {
         try {
             const boxingResponse = await axios.get('http://localhost:4001/api/boxing-workouts');
             const cardioResponse = await axios.get('http://localhost:4001/api/cardio-workouts');
             const weightsResponse = await axios.get('http://localhost:4001/api/weights-workouts');
 
-            // Combine all workouts into a single array
+            //Combining all fetched data into a single array
             const allWorkouts = [...boxingResponse.data, ...cardioResponse.data, ...weightsResponse.data];
             setWorkouts(allWorkouts);
         } catch (error) {
@@ -34,11 +37,13 @@ function Dashboard({ username }) {
         }
     };
     
+     //Function to toggle workout details popup
     const openPopup = (workout) => {
         // Toggle selectedWorkout state
         setSelectedWorkout(selectedWorkout ? null : workout);
     };
 
+    //Function to close the workout details popup
     const closePopup = () => {
         setSelectedWorkout(null);
     };
